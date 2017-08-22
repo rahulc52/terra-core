@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Magic from 'terra-magic';
+import Portal from 'react-portal';
 import PopupContent from './_PopupContent';
 import PopupArrow from './_PopupArrow';
 import PopupOverlay from './_PopupOverlay';
@@ -214,8 +215,11 @@ class Popup extends React.Component {
       targetAttachment,
     } = this.props;
     /* eslint-enable no-unused-vars */
-    this.offset = { vertical: 0, horizontal: 0 };
+    if (!isOpen) {
+      return null;
+    }
 
+    this.offset = { vertical: 0, horizontal: 0 };
     this.cAttachment = Magic.Utils.parseStringPair(contentAttachment);
     if (document.getElementsByTagName('html')[0].getAttribute('dir') === 'rtl') {
       this.cAttachment = PopupUtils.switchAttachmentToRTL(this.cAttachment);
@@ -230,16 +234,14 @@ class Popup extends React.Component {
       this.tAttachment = Magic.Utils.mirrorAttachment(this.cAttachment);
     }
 
-    let magicContent = children;
     const showArrow = isArrowDisplayed && !(this.cAttachment.vertical === 'middle' && this.cAttachment.horizontal === 'center');
-    if (isOpen) {
-      const boundingFrame = boundingRef ? boundingRef() : undefined;
-      magicContent = this.createPopupContent(boundingFrame, showArrow);
-    }
+    const magicContent = this.createPopupContent(boundingRef ? boundingRef() : undefined, showArrow);
 
     return (
       <div>
-        {isOpen && <PopupOverlay className={this.props.classNameOverlay} />}
+        <Portal isOpened={isOpen}>
+          <PopupOverlay className={this.props.classNameOverlay} />
+        </Portal>
         <Magic
           arrowDepth={showArrow ? PopupArrow.Opts.arrowSize : 0}
           attachmentBehavior="flip"

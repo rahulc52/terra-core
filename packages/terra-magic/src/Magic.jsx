@@ -173,9 +173,16 @@ class Magic extends React.Component {
       this.props.arrowDepth,
       this.props.attachmentBehavior,
     );
-    this.contentNode.style.position = result.style.position;
-    this.contentNode.style.transform = `translate3d(${result.style.left}, ${result.style.top}, 0px)`;
-    this.contentNode.style.opacity = '1.0';
+    if (this.contentNode.style.position !== result.style.position) {
+      this.contentNode.style.position = result.style.position;
+    }
+    const newTransform = `translate3d(${result.style.left}, ${result.style.top}, 0px)`
+    if (this.contentNode.style.transform !== newTransform) {
+      this.contentNode.style.transform = newTransform;
+    }
+    if (this.contentNode.style.opacity !== '1.0') {
+      this.contentNode.style.opacity = '1.0';
+    }
 
     if (this.props.onPosition) {
       this.props.onPosition(
@@ -238,6 +245,9 @@ class Magic extends React.Component {
       onPosition,
     } = this.props;
     /* eslint-enable no-unused-vars */
+    if (!isOpen) {
+      return null;
+    }
     const clonedContent = this.cloneContent(content);
 
     return (
