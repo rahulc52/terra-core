@@ -244,7 +244,7 @@ class Popup extends React.Component {
         </Portal>
         <Magic
           arrowDepth={showArrow ? PopupArrow.Opts.arrowSize : 0}
-          attachmentBehavior="flip"
+          attachmentBehavior="auto"
           boundingRef={boundingRef}
           content={magicContent}
           contentAttachment={`${this.cAttachment.vertical} ${this.cAttachment.horizontal}`}

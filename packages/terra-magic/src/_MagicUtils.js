@@ -246,9 +246,12 @@ const getTargetCoords = (rect, attachment, offset) => {
   return { x: tCoords.x + offset.horizontal, y: tCoords.y + offset.vertical, attachment, offset };
 };
 
-const mirrorTargetCoords = (tRect, tAttachment, tOffset) => {
+const mirrorTargetCoords = (tRect, tAttachment, tOffset, cAttachment) => {
   const mOffset = mirrorOffset(tOffset, tAttachment);
-  const mAttachment = mirrorAttachment(tAttachment);
+  let mAttachment = tAttachment;
+  if (cAttachment.vertical === tAttachment.vertical || (cAttachment.vertical !== 'middle' &&  tAttachment.vertical !== 'middle')) {
+    mAttachment = mirrorAttachment(tAttachment);
+  }
   return getTargetCoords(tRect, mAttachment, mOffset);
 };
 
@@ -299,7 +302,7 @@ const getRotatedPositions = (positions, cRect, bRect, tRect, margin, behavior) =
   if (behavior !== 'none') {
     let newOffset = mirrorOffset(positions.cCoords.offset, positions.cCoords.attachment);
     let newAttachment = mirrorAttachment(positions.cCoords.attachment);
-    let newTCoords = mirrorTargetCoords(tRect, positions.tCoords.attachment, positions.tCoords.offset);
+    let newTCoords = mirrorTargetCoords(tRect, positions.tCoords.attachment, positions.tCoords.offset, positions.cCoords.attachment);
     let newPositions = getBasicPositions(cRect, newAttachment, newOffset, newTCoords, margin);
 
     if (isValidPositions(newPositions, cRect, bRect)) {
