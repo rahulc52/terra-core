@@ -1,14 +1,4 @@
-const MIRROR_LR = {
-  center: 'center',
-  left: 'right',
-  right: 'left',
-};
-
 const isVerticalAttachment = attachment => (attachment.vertical !== 'middle');
-
-const switchAttachmentToRTL = (attachment) => {
-  return `${attachment.vertical} ${MIRROR_LR[attachment.horizontal]}`;
-};
 
 /**
  * This method calculates a positional offset to be applied if the target is smaller than the arrow.
@@ -141,7 +131,6 @@ const topOffset = (targetBounds, contentBounds, arrowOffset, cornerOffset, tAtta
 
 const PopupUtils = {
   isVerticalAttachment,
-  switchAttachmentToRTL,
   getContentOffset,
   arrowPositionFromBounds,
   leftOffset,

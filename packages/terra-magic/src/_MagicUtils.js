@@ -154,6 +154,14 @@ const getBoundingRect = (boundingElement) => {
   return rect;
 };
 
+const switchAttachmentToRTL = (attachment) => {
+  return { vertical: attachment.vertical, horizontal: MIRROR_LR[attachment.horizontal] };
+};
+
+const switchOffsetToRTL = (offset) => {
+  return { vertical: offset.vertical, horizontal: -offset.horizontal };
+};
+
 const parseStringPair = (value) => {
   if (!value) {
     return { vertical: '', horizontal: '' };
@@ -368,11 +376,7 @@ const getBoundedPositions = (positions, cRect, bRect) => {
   };
 };
 
-const positionStyleFromBounds = (boundingRect, targetRect, contentRect, contentOffset, targetOffset, contentAttachment, targetAttachment, margin, behavior) => {
-  const cAttachment = parseStringPair(contentAttachment);
-  const tAttachment = parseStringPair(targetAttachment);
-  const cOffset = parseOffset(contentOffset);
-  const tOffset = parseOffset(targetOffset);
+const positionStyleFromBounds = (boundingRect, targetRect, contentRect, cOffset, tOffset, cAttachment, tAttachment, margin, behavior) => {
   const tCoords = getTargetCoords(targetRect, tAttachment, tOffset);
   let positions = getBasicPositions(contentRect, cAttachment, cOffset, tCoords, margin);
   positions = getRotatedPositions(positions, contentRect, boundingRect, targetRect, margin, behavior);
@@ -403,6 +407,8 @@ export default {
   getBounds,
   getBoundingRect,
   mirrorAttachment,
+  switchAttachmentToRTL,
+  switchOffsetToRTL,
   parseStringPair,
   positionStyleFromBounds,
 };

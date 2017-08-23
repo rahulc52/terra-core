@@ -162,7 +162,6 @@ class Popup extends React.Component {
     }
 
     if (boundingFrame) {
-      // TODO: may need the bounding fancy...
       boundsProps.contentHeightMax = boundingFrame.clientHeight;
       boundsProps.contentWidthMax = boundingFrame.clientWidth;
     } else {
@@ -172,7 +171,6 @@ class Popup extends React.Component {
 
     let arrow;
     if (showArrow) {
-      this.offset = PopupUtils.getContentOffset(this.cAttachment, this.tAttachment, this.props.targetRef(), PopupArrow.Opts.arrowSize, PopupContent.Opts.cornerSize);
       arrow = <PopupArrow className={this.props.classNameArrow} refCallback={this.setArrowNode} />;
     }
 
@@ -219,22 +217,13 @@ class Popup extends React.Component {
       return null;
     }
 
-    this.offset = { vertical: 0, horizontal: 0 };
-    this.cAttachment = Magic.Utils.parseStringPair(contentAttachment);
-    if (document.getElementsByTagName('html')[0].getAttribute('dir') === 'rtl') {
-      this.cAttachment = PopupUtils.switchAttachmentToRTL(this.cAttachment);
+    let contentOffset = { vertical: 0, horizontal: 0 };
+    const showArrow = isArrowDisplayed && contentAttachment !== 'middle center';
+    if (showArrow) {
+      const cAttachment = Magic.Utils.parseStringPair(contentAttachment);
+      const tAttachment = Magic.Utils.parseStringPair(targetAttachment);
+      contentOffset = PopupUtils.getContentOffset(cAttachment, tAttachment, this.props.targetRef(), PopupArrow.Opts.arrowSize, PopupContent.Opts.cornerSize);
     }
-
-    if (targetAttachment) {
-      this.tAttachment = Magic.Utils.parseStringPair(targetAttachment);
-      if (document.getElementsByTagName('html')[0].getAttribute('dir') === 'rtl') {
-        this.tAttachment = PopupUtils.switchAttachmentToRTL(this.tAttachment);
-      }
-    } else {
-      this.tAttachment = Magic.Utils.mirrorAttachment(this.cAttachment);
-    }
-
-    const showArrow = isArrowDisplayed && !(this.cAttachment.vertical === 'middle' && this.cAttachment.horizontal === 'center');
     const magicContent = this.createPopupContent(boundingRef ? boundingRef() : undefined, showArrow);
 
     return (
@@ -247,13 +236,13 @@ class Popup extends React.Component {
           attachmentBehavior="auto"
           boundingRef={boundingRef}
           content={magicContent}
-          contentAttachment={`${this.cAttachment.vertical} ${this.cAttachment.horizontal}`}
-          contentOffset={`${this.offset.vertical} ${this.offset.horizontal}`}
+          contentAttachment={contentAttachment}
+          contentOffset={contentOffset}
           isEnabled={this.isContentSized}
           isOpen={isOpen}
           onPosition={this.handleOnPosition}
           targetRef={targetRef}
-          targetAttachment={`${this.tAttachment.vertical} ${this.tAttachment.horizontal}`}
+          targetAttachment={targetAttachment}
         />
       </div>
     );

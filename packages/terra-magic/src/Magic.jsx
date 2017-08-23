@@ -24,13 +24,13 @@ const ATTACHMENT_BEHAVIORS = [
 
 const propTypes = {
   /**
-   * Depth in px of the margin to allow for an arrow.
-   */
-  arrowDepth: PropTypes.number,
-  /**
    * If the primary attachment in not available, how should the content be positioned.
    */
   attachmentBehavior: PropTypes.oneOf(ATTACHMENT_BEHAVIORS),
+  /**
+   * Value in px of the margin to place between the target and the content.
+   */
+  attachmentMargin: PropTypes.number,
   /**
    * Reference to the bonding container, wil use window if nothing is provided.
    */
@@ -75,8 +75,10 @@ const propTypes = {
 
 const defaultProps = {
   attachmentBehavior: 'auto',
+  contentOffset: '0 0',
   isEnabled: false,
   isOpen: false,
+  targetOffset: '0 0',
 };
 
 class Magic extends React.Component {
@@ -166,11 +168,11 @@ class Magic extends React.Component {
       rects.boundingRect,
       rects.targetRect,
       rects.contentRect,
-      this.props.contentOffset,
-      this.props.targetOffset,
-      this.props.contentAttachment,
-      (this.props.targetAttachment || MagicUtils.mirrorAttachment(this.props.contentAttachment)),
-      this.props.arrowDepth,
+      this.cOffset,
+      this.tOffset,
+      this.cAttachment,
+      this.tAttachment,
+      this.props.attachmentMargin,
       this.props.attachmentBehavior,
     );
     if (this.contentNode.style.position !== result.style.position) {
@@ -232,7 +234,8 @@ class Magic extends React.Component {
   render() {
     /* eslint-disable no-unused-vars */
     const {
-      arrowDepth,
+      attachmentBehavior,
+      attachmentMargin,
       boundingRef,
       content,
       contentAttachment,
@@ -248,6 +251,22 @@ class Magic extends React.Component {
     if (!isOpen) {
       return null;
     }
+    this.cOffset = MagicUtils.parseStringPair(contentOffset);
+    this.tOffset = MagicUtils.parseStringPair(targetOffset);
+    this.cAttachment = MagicUtils.parseStringPair(contentAttachment);
+    if (targetAttachment) {
+      this.tAttachment = MagicUtils.parseStringPair(targetAttachment);
+    } else {
+      this.tAttachment = MagicUtils.mirrorAttachment(this.cAttachment);
+    }
+
+    if (document.getElementsByTagName('html')[0].getAttribute('dir') === 'rtl') {
+      this.cOffset = MagicUtils.switchOffsetToRTL(this.cOffset);
+      this.tOffset = MagicUtils.switchOffsetToRTL(this.tOffset);
+      this.cAttachment = MagicUtils.switchAttachmentToRTL(this.cAttachment);
+      this.tAttachment = MagicUtils.switchAttachmentToRTL(this.tAttachment);
+    }
+
     const clonedContent = this.cloneContent(content);
 
     return (
