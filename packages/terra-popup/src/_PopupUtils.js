@@ -24,7 +24,7 @@ const getContentOffset = (cAttachment, tAttachment, targetNode, arrowOffset, cor
       }
     }
   }
-  return offset;
+  return `${offset.vertical} ${offset.horizontal}`;
 };
 
 const doesArrowFitHorizontal = (targetBounds, contentBounds, arrowOffset, cornerOffset) => (contentBounds.left + contentBounds.width) - arrowOffset - cornerOffset >= targetBounds.left && contentBounds.left + arrowOffset + cornerOffset <= targetBounds.left + targetBounds.width;

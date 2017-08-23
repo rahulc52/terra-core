@@ -410,5 +410,6 @@ export default {
   switchAttachmentToRTL,
   switchOffsetToRTL,
   parseStringPair,
+  parseOffset,
   positionStyleFromBounds,
 };

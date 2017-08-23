@@ -217,7 +217,7 @@ class Popup extends React.Component {
       return null;
     }
 
-    let contentOffset = { vertical: 0, horizontal: 0 };
+    let contentOffset;
     const showArrow = isArrowDisplayed && contentAttachment !== 'middle center';
     if (showArrow) {
       const cAttachment = Magic.Utils.parseStringPair(contentAttachment);
@@ -232,8 +232,8 @@ class Popup extends React.Component {
           <PopupOverlay className={this.props.classNameOverlay} />
         </Portal>
         <Magic
-          arrowDepth={showArrow ? PopupArrow.Opts.arrowSize : 0}
           attachmentBehavior="auto"
+          attachmentMargin={showArrow ? PopupArrow.Opts.arrowSize : 0}
           boundingRef={boundingRef}
           content={magicContent}
           contentAttachment={contentAttachment}

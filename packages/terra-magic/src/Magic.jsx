@@ -74,6 +74,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  attachmentMargin: 0,
   attachmentBehavior: 'auto',
   contentOffset: '0 0',
   isEnabled: false,
@@ -251,8 +252,9 @@ class Magic extends React.Component {
     if (!isOpen) {
       return null;
     }
-    this.cOffset = MagicUtils.parseStringPair(contentOffset);
-    this.tOffset = MagicUtils.parseStringPair(targetOffset);
+
+    this.cOffset = MagicUtils.parseOffset(contentOffset);
+    this.tOffset = MagicUtils.parseOffset(targetOffset);
     this.cAttachment = MagicUtils.parseStringPair(contentAttachment);
     if (targetAttachment) {
       this.tAttachment = MagicUtils.parseStringPair(targetAttachment);
