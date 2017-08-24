@@ -61,7 +61,7 @@ const arrowPositionFromBounds = (targetBounds, contentBounds, arrowOffset, corne
 
 const getSecondaryArrowPosition = (targetBounds, contentBounds, arrowOffset, cornerOffset, attachment) => {
   const overlaps = {};
-  overlaps.right = contentBounds.left + contentBounds.width >= targetBounds.left && contentBounds.left + contentBounds.width < (targetBounds.left + targetBounds.width) - arrowOffset;
+  overlaps.right = contentBounds.left + contentBounds.width >= targetBounds.left && contentBounds.left + contentBounds.width <= (targetBounds.left + targetBounds.width) - arrowOffset;
   overlaps.bottom = contentBounds.top + contentBounds.height >= targetBounds.top && contentBounds.top + contentBounds.height <= (targetBounds.top + targetBounds.height) - arrowOffset;
   overlaps.left = contentBounds.left >= targetBounds.left + arrowOffset && contentBounds.left <= targetBounds.left + targetBounds.width;
   overlaps.top = contentBounds.top >= targetBounds.top + arrowOffset && contentBounds.top <= targetBounds.top + targetBounds.height;
