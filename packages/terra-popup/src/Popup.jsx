@@ -217,12 +217,18 @@ class Popup extends React.Component {
       return null;
     }
 
-    let contentOffset;
+    let tAttachment;
+    const cAttachment = Magic.Utils.parseStringPair(contentAttachment);
+    if (targetAttachment) {
+      tAttachment = Magic.Utils.parseStringPair(targetAttachment);
+    } else {
+      tAttachment = Magic.Utils.mirrorAttachment(cAttachment);
+    }
+
+    let cOffset;
     const showArrow = isArrowDisplayed && contentAttachment !== 'middle center';
     if (showArrow) {
-      const cAttachment = Magic.Utils.parseStringPair(contentAttachment);
-      const tAttachment = Magic.Utils.parseStringPair(targetAttachment);
-      contentOffset = PopupUtils.getContentOffset(cAttachment, tAttachment, this.props.targetRef(), PopupArrow.Opts.arrowSize, PopupContent.Opts.cornerSize);
+      cOffset = PopupUtils.getContentOffset(cAttachment, tAttachment, this.props.targetRef(), PopupArrow.Opts.arrowSize, PopupContent.Opts.cornerSize);
     }
     const magicContent = this.createPopupContent(boundingRef ? boundingRef() : undefined, showArrow);
 
@@ -237,12 +243,12 @@ class Popup extends React.Component {
           boundingRef={boundingRef}
           content={magicContent}
           contentAttachment={contentAttachment}
-          contentOffset={contentOffset}
+          contentOffset={cOffset}
           isEnabled={this.isContentSized}
           isOpen={isOpen}
           onPosition={this.handleOnPosition}
           targetRef={targetRef}
-          targetAttachment={targetAttachment}
+          targetAttachment={`${tAttachment.vertical} ${tAttachment.horizontal}`}
         />
       </div>
     );
