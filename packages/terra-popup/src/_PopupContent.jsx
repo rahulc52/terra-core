@@ -85,7 +85,7 @@ const defaultProps = {
 class PopupContent extends React.Component {
   static getDimensionStyle(value, maxValue, isCustom) {
     if (value > 0) {
-      if (maxValue > 0 && value > maxValue) {
+      if (maxValue > 0 && value >= maxValue) {
         return `${maxValue.toString()}px`;
       } else if (!isCustom) {
         return `${value.toString()}px`; 
@@ -132,10 +132,10 @@ class PopupContent extends React.Component {
 
   cloneChildren(children, isHeightCustom, isWidthCustom, isHeightBounded, isWidthBounded) {
     const newProps = {};
-    if (!isHeightCustom) {
+    if (isHeightCustom) {
       newProps.isHeightBounded = isHeightBounded;
     }
-    if (!isWidthCustom) {
+    if (isWidthCustom) {
       newProps.isWidthBounded = isWidthBounded;
     }
     return React.Children.map(children, (child) => {
