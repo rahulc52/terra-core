@@ -39,8 +39,6 @@ const getActualBoundingClientRect = (node) => {
 };
 
 const getScrollParents = (element) => {
-  // In firefox if the el is inside an iframe with display: none; window.getComputedStyle() will return null;
-  // https://bugzilla.mozilla.org/show_bug.cgi?id=548397
   const computedStyle = getComputedStyle(element) || {};
   const position = computedStyle.position;
   const parents = [];
