@@ -24,7 +24,7 @@ render() {
       content=<Hookshot.Content />
       contentAttachment="bottom center"
       contentOffset="10 10"
-      isEnabled=true
+      isEnabled
       isOpen={this.state.isOpen}
       onPosition={this.handleOnPosition}
       targetRef={this.getTargetRef}

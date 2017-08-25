@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from 'terra-button';
-import Hookshot from 'terra-hookshot';
+import Hookshot from '../../lib/Hookshot';
 
 class HookshotStandard extends React.Component {
   constructor(props) {
@@ -40,7 +39,7 @@ class HookshotStandard extends React.Component {
           isOpen={this.state.isOpen}
           targetRef={() => document.getElementById('hookshot-standard-button')}
         />
-        <Button id="hookshot-standard-button" text="Default Hookshot" onClick={this.handleButtonClick} />
+        <button id="hookshot-standard-button" onClick={this.handleButtonClick}>Default Hookshot</button>
       </div>
     );
   }
