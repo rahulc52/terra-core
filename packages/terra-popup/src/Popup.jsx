@@ -12,6 +12,10 @@ import './Popup.scss';
 
 const propTypes = {
   /**
+   * If the primary attachment in not available, how should the content be positioned.
+   */
+  attachmentBehavior: PropTypes.oneOf(Magic.attachmentBehaviors),
+  /**
    * The children to be displayed as content within the popup.
    */
   children: PropTypes.node.isRequired,
@@ -80,6 +84,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  attachmentBehavior: 'auto',
   boundingRef: null,
   classNameArrow: null,
   classNameContent: null,
@@ -99,13 +104,13 @@ class Popup extends React.Component {
     this.handleOnPosition = this.handleOnPosition.bind(this);
     this.setArrowNode = this.setArrowNode.bind(this);
     this.validateContentNode = this.validateContentNode.bind(this);
-    this.isContentSized = props.contentHeight !== 'custom' && props.contentWidth !== 'custom';
+    this.isContentSized = props.contentHeight !== 'dynamic' && props.contentWidth !== 'dynamic';
     this.contentHeight = PopupHeights[props.contentHeight];
     this.contentWidth = PopupWidths[props.contentWidth];
   }
 
   componentWillReceiveProps(newProps) {
-    this.isContentSized = newProps.contentHeight !== 'custom' && newProps.contentWidth !== 'custom';
+    this.isContentSized = newProps.contentHeight !== 'dynamic' && newProps.contentWidth !== 'dynamic';
     this.contentHeight = PopupHeights[newProps.contentHeight];
     this.contentWidth = PopupWidths[newProps.contentWidth];
   }
@@ -184,8 +189,8 @@ class Popup extends React.Component {
         refCallback={this.validateContentNode}
         releaseFocus={this.props.releaseFocus}
         requestFocus={this.props.requestFocus}
-        isHeightCustom={this.props.contentHeight === 'custom'}
-        isWidthCustom={this.props.contentWidth === 'custom'}
+        isHeightDynamic={this.props.contentHeight === 'dynamic'}
+        isWidthDynamic={this.props.contentWidth === 'dynamic'}
       >
         {this.props.children}
       </PopupContent>
@@ -195,6 +200,7 @@ class Popup extends React.Component {
   render() {
     /* eslint-disable no-unused-vars */
     const {
+      attachmentBehavior,
       boundingRef,
       children,
       classNameArrow,
@@ -238,7 +244,7 @@ class Popup extends React.Component {
           <PopupOverlay className={this.props.classNameOverlay} />
         </Portal>
         <Magic
-          attachmentBehavior="auto"
+          attachmentBehavior={attachmentBehavior}
           attachmentMargin={showArrow ? PopupArrow.Opts.arrowSize : 0}
           boundingRef={boundingRef}
           content={magicContent}

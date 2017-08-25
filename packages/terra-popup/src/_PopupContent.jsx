@@ -53,11 +53,11 @@ const propTypes = {
   /**
    * Whether or not the height provided were using predefined value.
    */
-  isHeightCustom: PropTypes.bool,
+  isHeightDynamic: PropTypes.bool,
   /**
    * Whether or not the width provided were using predefined value.
    */
-  isWidthCustom: PropTypes.bool,
+  isWidthDynamic: PropTypes.bool,
   /**
    * The function returning the frame html reference.
    */
@@ -80,23 +80,25 @@ const defaultProps = {
   contentHeightMax: -1,
   contentWidthMax: -1,
   isHeaderDisabled: false,
+  isHeightDynamic: false,
+  isWidthDynamic: false,
 };
 
 class PopupContent extends React.Component {
-  static getDimensionStyle(value, maxValue, isCustom) {
+  static getDimensionStyle(value, maxValue, isDynamic) {
     if (value > 0) {
       if (maxValue > 0 && value >= maxValue) {
         return `${maxValue.toString()}px`;
-      } else if (!isCustom) {
+      } else if (!isDynamic) {
         return `${value.toString()}px`; 
       }
     }
     return;
   }
 
-  static getContentStyle(height, maxHeight, width, maxWidth, isHeightCustom, isWidthCustom) {
-    const heightStyle = PopupContent.getDimensionStyle(height, maxHeight, isHeightCustom);
-    const widthStyle = PopupContent.getDimensionStyle(width, maxWidth, isWidthCustom);
+  static getContentStyle(height, maxHeight, width, maxWidth, isHeightDynamic, isWidthDynamic) {
+    const heightStyle = PopupContent.getDimensionStyle(height, maxHeight, isHeightDynamic);
+    const widthStyle = PopupContent.getDimensionStyle(width, maxWidth, isWidthDynamic);
     const contentStyle = {};
     if (heightStyle) {
       contentStyle.height = heightStyle;
@@ -130,12 +132,12 @@ class PopupContent extends React.Component {
     }
   }
 
-  cloneChildren(children, isHeightCustom, isWidthCustom, isHeightBounded, isWidthBounded) {
+  cloneChildren(children, isHeightDynamic, isWidthDynamic, isHeightBounded, isWidthBounded) {
     const newProps = {};
-    if (isHeightCustom) {
+    if (isHeightDynamic) {
       newProps.isHeightBounded = isHeightBounded;
     }
-    if (isWidthCustom) {
+    if (isWidthDynamic) {
       newProps.isWidthBounded = isWidthBounded;
     }
     return React.Children.map(children, (child) => {
@@ -153,8 +155,8 @@ class PopupContent extends React.Component {
       contentWidth,
       contentWidthMax,
       isHeaderDisabled,
-      isHeightCustom,
-      isWidthCustom,
+      isHeightDynamic,
+      isWidthDynamic,
       onRequestClose,
       refCallback,
       releaseFocus,
@@ -162,12 +164,12 @@ class PopupContent extends React.Component {
       ...customProps
     } = this.props;
 
-    const contentStyle = PopupContent.getContentStyle(contentHeight, contentHeightMax, contentWidth, contentWidthMax, isHeightCustom, isWidthCustom);
+    const contentStyle = PopupContent.getContentStyle(contentHeight, contentHeightMax, contentWidth, contentWidthMax, isHeightDynamic, isWidthDynamic);
     const isHeightBounded = PopupContent.isBounded(contentHeight, contentHeightMax);
     const isWidthBounded = PopupContent.isBounded(contentWidth, contentWidthMax);
     const isFullScreen = isHeightBounded && isWidthBounded;
 
-    let content = this.cloneChildren(children, isHeightCustom, isWidthCustom, isHeightBounded, isWidthBounded);
+    let content = this.cloneChildren(children, isHeightDynamic, isWidthDynamic, isHeightBounded, isWidthBounded);
     if (isFullScreen && !isHeaderDisabled) {
       content = PopupContent.addPopupHeader(content, onRequestClose);
     }

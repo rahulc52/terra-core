@@ -282,6 +282,7 @@ class Magic extends React.Component {
 Magic.propTypes = propTypes;
 Magic.defaultProps = defaultProps;
 Magic.attachmentPositions = ATTACHMENT_POSITIONS;
+Magic.attachmentBehaviors = ATTACHMENT_BEHAVIORS;
 Magic.Utils = MagicUtils;
 Magic.Content = MagicContent;
 
