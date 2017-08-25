@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import './HookshotContent.scss';
+import styles from './HookshotContent.scss';
 
+const cx = classNames.bind(styles);
 /**
  * Key code value for the escape key.
  */
@@ -118,7 +119,7 @@ class HookshotContent extends React.Component {
     delete customProps.closePortal;
 
     return (
-      <div {...customProps} className="terra-Hookshot-content" ref={refCallback}>
+      <div {...customProps} className={cx(['content', customProps.className])} ref={refCallback}>
         {children}
       </div>
     );
