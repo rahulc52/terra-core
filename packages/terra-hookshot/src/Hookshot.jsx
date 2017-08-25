@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from 'react-portal';
-import MagicContent from './_MagicContent';
-import MagicUtils from './_MagicUtils';
+import HookshotContent from './_HookshotContent';
+import HookshotUtils from './_HookshotUtils';
 
 const ATTACHMENT_POSITIONS = [
   'top left',
@@ -36,7 +36,7 @@ const propTypes = {
    */
   boundingRef: PropTypes.func,
   /**
-   * The MagicContent to be magicked.
+   * The HookshotContent to be attached.
    */
   content: PropTypes.element.isRequired,
   /**
@@ -48,7 +48,7 @@ const propTypes = {
    */
   contentOffset: PropTypes.string,
   /**
-   * Should element be actively magicked to the page.
+   * Should content be actively positioned via hookshot.
    */
   isEnabled: PropTypes.bool,
   /**
@@ -56,11 +56,11 @@ const propTypes = {
    */
   isOpen: PropTypes.bool,
   /**
-   * Callback function when the magic is moved.
+   * Callback function when the content have been positioned.
    */
   onPosition: PropTypes.func,
   /**
-   * Required element to be presented and magicked to.
+   * Required element that the content will hookshot to.
    */
   targetRef: PropTypes.func.isRequired,
   /**
@@ -82,7 +82,7 @@ const defaultProps = {
   targetOffset: '0 0',
 };
 
-class Magic extends React.Component {
+class Hookshot extends React.Component {
   constructor(props) {
     super(props);
     this.setContentNode = this.setContentNode.bind(this);
@@ -127,9 +127,9 @@ class Magic extends React.Component {
   }
 
   getNodeRects() {
-    const targetRect = MagicUtils.getBounds(this.props.targetRef());
-    const contentRect = MagicUtils.getBounds(this.contentNode);
-    const boundingRect = MagicUtils.getBoundingRect(this.props.boundingRef ? this.props.boundingRef() : 'window');
+    const targetRect = HookshotUtils.getBounds(this.props.targetRef());
+    const contentRect = HookshotUtils.getBounds(this.contentNode);
+    const boundingRect = HookshotUtils.getBoundingRect(this.props.boundingRef ? this.props.boundingRef() : 'window');
     return { targetRect, contentRect, boundingRect };
   }
 
@@ -138,7 +138,7 @@ class Magic extends React.Component {
     if (target) {
       ['resize', 'scroll', 'touchmove'].forEach(event => window.addEventListener(event, this.update));
 
-      this.scrollParents = MagicUtils.getScrollParents(target);
+      this.scrollParents = HookshotUtils.getScrollParents(target);
       this.scrollParents.forEach((parent) => {
         if (parent !== target.ownerDocument) {
           parent.addEventListener('scroll', this.update);
@@ -165,7 +165,7 @@ class Magic extends React.Component {
 
   position(event) {
     const rects = this.getNodeRects();
-    const result = MagicUtils.positionStyleFromBounds(
+    const result = HookshotUtils.positionStyleFromBounds(
       rects.boundingRect,
       rects.targetRect,
       rects.contentRect,
@@ -191,7 +191,7 @@ class Magic extends React.Component {
       this.props.onPosition(
         event,
         rects.targetRect,
-        MagicUtils.getBounds(this.contentNode),
+        HookshotUtils.getBounds(this.contentNode),
         result.positions.cCoords.attachment,
         result.positions.tCoords.attachment,
         result.positions.tCoords.offset,
@@ -209,10 +209,10 @@ class Magic extends React.Component {
       return;
     }
 
-    this.updateMagic(event);
+    this.updateHookshot(event);
   }
 
-  updateMagic(event) {
+  updateHookshot(event) {
     this.position(event);
   }
 
@@ -253,20 +253,20 @@ class Magic extends React.Component {
       return null;
     }
 
-    this.cOffset = MagicUtils.parseOffset(contentOffset);
-    this.tOffset = MagicUtils.parseOffset(targetOffset);
-    this.cAttachment = MagicUtils.parseStringPair(contentAttachment);
+    this.cOffset = HookshotUtils.parseOffset(contentOffset);
+    this.tOffset = HookshotUtils.parseOffset(targetOffset);
+    this.cAttachment = HookshotUtils.parseStringPair(contentAttachment);
     if (targetAttachment) {
-      this.tAttachment = MagicUtils.parseStringPair(targetAttachment);
+      this.tAttachment = HookshotUtils.parseStringPair(targetAttachment);
     } else {
-      this.tAttachment = MagicUtils.mirrorAttachment(this.cAttachment);
+      this.tAttachment = HookshotUtils.mirrorAttachment(this.cAttachment);
     }
 
     if (document.getElementsByTagName('html')[0].getAttribute('dir') === 'rtl') {
-      this.cOffset = MagicUtils.switchOffsetToRTL(this.cOffset);
-      this.tOffset = MagicUtils.switchOffsetToRTL(this.tOffset);
-      this.cAttachment = MagicUtils.switchAttachmentToRTL(this.cAttachment);
-      this.tAttachment = MagicUtils.switchAttachmentToRTL(this.tAttachment);
+      this.cOffset = HookshotUtils.switchOffsetToRTL(this.cOffset);
+      this.tOffset = HookshotUtils.switchOffsetToRTL(this.tOffset);
+      this.cAttachment = HookshotUtils.switchAttachmentToRTL(this.cAttachment);
+      this.tAttachment = HookshotUtils.switchAttachmentToRTL(this.tAttachment);
     }
 
     const clonedContent = this.cloneContent(content);
@@ -279,11 +279,11 @@ class Magic extends React.Component {
   }
 }
 
-Magic.propTypes = propTypes;
-Magic.defaultProps = defaultProps;
-Magic.attachmentPositions = ATTACHMENT_POSITIONS;
-Magic.attachmentBehaviors = ATTACHMENT_BEHAVIORS;
-Magic.Utils = MagicUtils;
-Magic.Content = MagicContent;
+Hookshot.propTypes = propTypes;
+Hookshot.defaultProps = defaultProps;
+Hookshot.attachmentPositions = ATTACHMENT_POSITIONS;
+Hookshot.attachmentBehaviors = ATTACHMENT_BEHAVIORS;
+Hookshot.Utils = HookshotUtils;
+Hookshot.Content = HookshotContent;
 
-export default Magic;
+export default Hookshot;

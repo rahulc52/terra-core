@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import './MagicContent.scss';
+import './HookshotContent.scss';
 
 /**
  * Key code value for the escape key.
@@ -43,7 +43,7 @@ const defaultProps = {
   closeOnResize: false,
 };
 
-class MagicContent extends React.Component {
+class HookshotContent extends React.Component {
   constructor(props) {
     super(props);
     this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -118,15 +118,15 @@ class MagicContent extends React.Component {
     delete customProps.closePortal;
 
     return (
-      <div {...customProps} className="terra-Magic-content" ref={refCallback}>
+      <div {...customProps} className="terra-Hookshot-content" ref={refCallback}>
         {children}
       </div>
     );
   }
 }
 
-MagicContent.propTypes = propTypes;
-MagicContent.defaultProps = defaultProps;
-const onClickOutsideContent = onClickOutside(MagicContent);
+HookshotContent.propTypes = propTypes;
+HookshotContent.defaultProps = defaultProps;
+const onClickOutsideContent = onClickOutside(HookshotContent);
 
 export default onClickOutsideContent;

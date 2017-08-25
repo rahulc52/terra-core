@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Magic from 'terra-magic';
+import Hookshot from 'terra-hookshot';
 import Portal from 'react-portal';
 import PopupContent from './_PopupContent';
 import PopupArrow from './_PopupArrow';
@@ -14,7 +14,7 @@ const propTypes = {
   /**
    * If the primary attachment in not available, how should the content be positioned.
    */
-  attachmentBehavior: PropTypes.oneOf(Magic.attachmentBehaviors),
+  attachmentBehavior: PropTypes.oneOf(Hookshot.attachmentBehaviors),
   /**
    * The children to be displayed as content within the popup.
    */
@@ -46,7 +46,7 @@ const propTypes = {
   /**
    * Attachment point for the popup, this will be mirrored to the target.
    */
-  contentAttachment: PropTypes.oneOf(Magic.attachmentPositions),
+  contentAttachment: PropTypes.oneOf(Hookshot.attachmentPositions),
   /**
    * A string representation of the height in px, limited to:
    * 40, 80, 120, 160, 240, 320, 400, 480, 560, 640, 720, 800, 880
@@ -80,7 +80,7 @@ const propTypes = {
   /**
    * Attachment point for the target.
    */
-  targetAttachment: PropTypes.oneOf(Magic.attachmentPositions),
+  targetAttachment: PropTypes.oneOf(Hookshot.attachmentPositions),
 };
 
 const defaultProps = {
@@ -144,7 +144,7 @@ class Popup extends React.Component {
 
   validateContentNode(node) {
     if (node) {
-      const contentRect = Magic.Utils.getBounds(node);
+      const contentRect = Hookshot.Utils.getBounds(node);
       if (this.contentHeight !== contentRect.height || this.contentWidth !== contentRect.width) {
         this.contentHeight = contentRect.height;
         this.contentWidth = contentRect.width;
@@ -224,11 +224,11 @@ class Popup extends React.Component {
     }
 
     let tAttachment;
-    const cAttachment = Magic.Utils.parseStringPair(contentAttachment);
+    const cAttachment = Hookshot.Utils.parseStringPair(contentAttachment);
     if (targetAttachment) {
-      tAttachment = Magic.Utils.parseStringPair(targetAttachment);
+      tAttachment = Hookshot.Utils.parseStringPair(targetAttachment);
     } else {
-      tAttachment = Magic.Utils.mirrorAttachment(cAttachment);
+      tAttachment = Hookshot.Utils.mirrorAttachment(cAttachment);
     }
 
     let cOffset;
@@ -236,18 +236,18 @@ class Popup extends React.Component {
     if (showArrow) {
       cOffset = PopupUtils.getContentOffset(cAttachment, tAttachment, this.props.targetRef(), PopupArrow.Opts.arrowSize, PopupContent.Opts.cornerSize);
     }
-    const magicContent = this.createPopupContent(boundingRef ? boundingRef() : undefined, showArrow);
+    const hookshotContent = this.createPopupContent(boundingRef ? boundingRef() : undefined, showArrow);
 
     return (
       <div>
         <Portal isOpened={isOpen}>
           <PopupOverlay className={this.props.classNameOverlay} />
         </Portal>
-        <Magic
+        <Hookshot
           attachmentBehavior={attachmentBehavior}
           attachmentMargin={showArrow ? PopupArrow.Opts.arrowSize : 0}
           boundingRef={boundingRef}
-          content={magicContent}
+          content={hookshotContent}
           contentAttachment={contentAttachment}
           contentOffset={cOffset}
           isEnabled={this.isContentSized}

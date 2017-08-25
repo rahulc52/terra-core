@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import ContentContainer from 'terra-content-container';
 import IconClose from 'terra-icon/lib/icon/IconClose';
 import FocusTrap from 'focus-trap-react';
-import Magic from 'terra-magic';
+import Hookshot from 'terra-hookshot';
 import styles from './PopupContent.scss';
 
 const cx = classNames.bind(styles);
@@ -185,7 +185,7 @@ class PopupContent extends React.Component {
 
     return (
       <FocusTrap>
-        <Magic.Content
+        <Hookshot.Content
           {...customProps}
           tabIndex="0"
           className={cx('popupContent')}
@@ -199,7 +199,7 @@ class PopupContent extends React.Component {
           <div className={innerClassNames} style={contentStyle}>
             {content}
           </div>
-        </Magic.Content>
+        </Hookshot.Content>
       </FocusTrap>
     );
   }
