@@ -12,16 +12,16 @@ The Terra Hookshot componenet positions content according to a targeted attachme
 
 ```jsx
 import React from 'react';
-import Popup from 'terra-hookshot';
+import Hookshot from 'terra-hookshot';
 
 
 render() {
   return (
     <Hookshot
-      attachmentBehavior={attachmentBehavior}
-      attachmentMargin=10
+      attachmentBehavior="auto"
+      attachmentMargin={10}
       boundingRef={boundingRef}
-      content={hookshotContent}
+      content=<Hookshot.Content />
       contentAttachment="bottom center"
       contentOffset="10 10"
       isEnabled=true
