@@ -1,0 +1,10 @@
+{
+  "Terra.statusView.clinicalHeading": "",
+  "Terra.statusView.noDataHeading": "",
+  "Terra.statusView.noResultHeading": "",
+  "Terra.statusView.notAuthorizedHeading": "",
+  "Terra.statusView.sensitiveDataHeading": "",
+  "Terra.statusView.errorHeading": "",
+  "Terra.statusView.noInternetHeading": "",
+  "Terra.statusView.errorLoadingHeading": "",
+}

@@ -1,0 +1,10 @@
+{
+  "Terra.statusView.clinicalHeading": "TBD",
+  "Terra.statusView.noDataHeading": "No Data",
+  "Terra.statusView.noResultHeading": "No Matching Results",
+  "Terra.statusView.notAuthorizedHeading": "Not Authorised",
+  "Terra.statusView.sensitiveDataHeading": "Sensitive Data",
+  "Terra.statusView.errorHeading": "Error",
+  "Terra.statusView.noInternetHeading": "No Internet Connection",
+  "Terra.statusView.errorLoadingHeading": "Error Loading",
+}
