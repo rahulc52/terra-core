@@ -66,6 +66,7 @@
     "terra-slide-group": "^1.4.0",
     "terra-slide-panel": "^1.4.0",
     "terra-status": "^1.5.0",
+    "terra-status-view": "0.0.0",
     "terra-table": "^1.5.0",
     "terra-text": "^1.4.0",
     "terra-theme-provider": "^0.0.0",

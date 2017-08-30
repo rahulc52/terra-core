@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Icon1 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon2 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon3 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon4 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon5 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon6 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon7 from 'terra-icon/lib/icon/IconSuccess';//TODO
-import Icon8 from 'terra-icon/lib/icon/IconSuccess';//TODO
+import Icon1 from 'terra-icon/lib/icon/IconSuccess'; // TODO
+import Icon2 from 'terra-icon/lib/icon/IconAdd';// TODO
+import Icon3 from 'terra-icon/lib/icon/IconAddPerson';// TODO
+import Icon4 from 'terra-icon/lib/icon/IconAway';// TODO
+import Icon5 from 'terra-icon/lib/icon/IconCancel';// TODO
+import Icon6 from 'terra-icon/lib/icon/IconAlert';// TODO
+import Icon7 from 'terra-icon/lib/icon/IconAbnormal';// TODO
+import Icon8 from 'terra-icon/lib/icon/IconError'; // TODO
 import 'terra-base/lib/baseStyles';
 import styles from './StatusView.scss';
 
@@ -17,36 +17,36 @@ const cx = classNames.bind(styles);
 
 const iconHeadingMapping = {
   clinical: {
-    icon: Icon1,//TODO
-    heading: "TBD", //TODO
+    icon: Icon1, // TODO
+    heading: 'TBD', //TODO
   },
   no_data: {
-    icon: Icon2,//TODO
-    heading: "No Data",//TODO
+    icon: Icon2, // TODO
+    heading: 'No Data', // TODO
   },
   no_result: {
-    icon: Icon3,//TODO
-    heading: "No Matching Results",//TODO
+    icon: Icon3, // TODO
+    heading: 'No Matching Results', // TODO
   },
   not_authorised: {
-    icon: Icon4,//TODO
-    heading: "Not Authorized",//TODO
+    icon: Icon4, // TODO
+    heading: 'Not Authorized', // TODO
   },
   sensitive_data: {
-    icon: Icon5,//TODO
-    heading: "Sensitive Data",//TODO
+    icon: Icon5, // TODO
+    heading: 'Sensitive Data', // TODO
   },
   error: {
-    icon: Icon6,//TODO
-    heading: "Error",//TODO
+    icon: Icon6, // TODO
+    heading: 'Error', // TODO
   },
   no_internet: {
-    icon: Icon7,//TODO
-    heading: "No Internet Connection",//TODO
+    icon: Icon7, // TODO
+    heading: 'No Internet Connection', // TODO
   },
   error_loading: {
-    icon: Icon8,//TODO
-    heading: "Error Loading",//TODO
+    icon: Icon8, // TODO
+    heading: 'Error Loading', // TODO
   },
 };
 
@@ -72,7 +72,7 @@ const propTypes = {
     */
   subtextContent: PropTypes.element,
    /**
-    * Whether or not the no Icon should be displayed.
+    * Whether or not the Icon should be displayed.
     */
   isIconHidden: PropTypes.bool,
 };
@@ -93,19 +93,22 @@ const StatusView = ({
   subtextContent,
   isIconHidden,
   ...customProps }) => {
-
-  if(type != "custom") {
-    heading = iconHeadingMapping[type].heading;
-    icon = iconHeadingMapping[type].icon;
+  let finalHeading;
+  let finalIcon;
+  finalHeading = heading;
+  finalIcon = icon;
+  if (type !== 'custom') {
+    finalHeading = iconHeadingMapping[type].heading;
+    finalIcon = iconHeadingMapping[type].icon;
   }
 
   let iconSection;
   if (!isIconHidden) {
-    iconSection = <div className={cx('icon')}>{icon}</div>;
+    iconSection = <div className={cx('icon')}>{finalIcon}</div>;
   }
   let headingSection;
   if (heading) {
-    headingSection = <p className={cx('heading')}>{heading}</p>;
+    headingSection = <p className={cx('heading')}>{finalHeading}</p>;
   }
 
   let subtextSection;

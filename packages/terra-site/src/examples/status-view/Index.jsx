@@ -10,12 +10,15 @@ import { version } from 'terra-status-view/package.json';
 import StatusViewSrc from '!raw-loader!terra-status-view/src/StatusView';
 
 // Example Files
+import NoDataStatusView from './NoDataStatusView';
 
 const StatusViewExamples = () => (
   <div>
     <div id="version">Version: {version}</div>
     <Markdown id="readme" src={ReadMe} />
     <PropsTable id="props" src={StatusViewSrc} />
+    <h2 id="no_data">No Data Status view</h2>
+    <NoDataStatusView />
   </div>
 );
 

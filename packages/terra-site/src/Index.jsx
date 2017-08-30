@@ -34,6 +34,7 @@ import SearchFieldExamples from './examples/search-field/Index';
 import SlideGroupExamples from './examples/slide-group/Index';
 import SlidePanelExamples from './examples/slide-panel/Index';
 import StatusExamples from './examples/status/Index';
+import StatusViewExamples from './examples/status-view/Index';
 import TableExamples from './examples/table/Index';
 import TextExamples from './examples/text/Index';
 import ThemeProviderExamples from './examples/theme-provider/Index';
@@ -122,6 +123,7 @@ ReactDOM.render((
       <Route path="slide-group" component={SlideGroupExamples} />
       <Route path="slide-panel" component={SlidePanelExamples} />
       <Route path="status" component={StatusExamples} />
+      <Route path="status-view" component={StatusViewExamples} />
       <Route path="table" component={TableExamples} />
       <Route path="text" component={TextExamples} />
       <Route path="theme-provider" component={ThemeProviderExamples} />
