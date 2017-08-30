@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Icon1 from 'terra-icon/lib/icon/IconSuccess'; // TODO
+import IconSuccess from 'terra-icon/lib/icon/IconSuccess'; // TODO
 import Icon2 from 'terra-icon/lib/icon/IconAdd';// TODO
 import Icon3 from 'terra-icon/lib/icon/IconAddPerson';// TODO
 import Icon4 from 'terra-icon/lib/icon/IconAway';// TODO
@@ -12,40 +12,40 @@ import Icon8 from 'terra-icon/lib/icon/IconError'; // TODO
 import 'terra-base/lib/baseStyles';
 import styles from './StatusView.scss';
 
-const statusTypes = ['clinical', 'no_data', 'no_result', 'not_authorised', 'sensitive_data', 'error', 'no_internet', 'error_loading', 'custom'];
+const statusTypes = ['clinical', 'no_data', 'no_result', 'not_authorized', 'sensitive_data', 'error', 'no_internet', 'error_loading', 'custom'];
 const cx = classNames.bind(styles);
 
 const iconHeadingMapping = {
   clinical: {
-    icon: Icon1, // TODO
+    icon: <IconSuccess />, // TODO
     heading: 'TBD', //TODO
   },
   no_data: {
-    icon: Icon2, // TODO
+    icon: <Icon2 />, // TODO
     heading: 'No Data', // TODO
   },
   no_result: {
-    icon: Icon3, // TODO
+    icon: <Icon3 />, // TODO
     heading: 'No Matching Results', // TODO
   },
-  not_authorised: {
-    icon: Icon4, // TODO
+  not_authorized: {
+    icon: <Icon4 />, // TODO
     heading: 'Not Authorized', // TODO
   },
   sensitive_data: {
-    icon: Icon5, // TODO
+    icon: <Icon5 />, // TODO
     heading: 'Sensitive Data', // TODO
   },
   error: {
-    icon: Icon6, // TODO
+    icon: <Icon6 />, // TODO
     heading: 'Error', // TODO
   },
   no_internet: {
-    icon: Icon7, // TODO
+    icon: <Icon7 />, // TODO
     heading: 'No Internet Connection', // TODO
   },
   error_loading: {
-    icon: Icon8, // TODO
+    icon: <Icon8 />, // TODO
     heading: 'Error Loading', // TODO
   },
 };
@@ -53,6 +53,8 @@ const iconHeadingMapping = {
 const propTypes = {
   /**
     * The status view icon and heading will be decided as per the type value.
+    * Type value should be on of 'clinical', 'no_data', 'no_result', 'not_authorized',
+    * 'sensitive_data', 'error', 'no_internet', 'error_loading', 'custom'
     */
   type: PropTypes.oneOf(statusTypes).isRequired,
   /**
@@ -107,7 +109,7 @@ const StatusView = ({
     iconSection = <div className={cx('icon')}>{finalIcon}</div>;
   }
   let headingSection;
-  if (heading) {
+  if (finalHeading) {
     headingSection = <p className={cx('heading')}>{finalHeading}</p>;
   }
 

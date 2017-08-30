@@ -1,16 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import StatusView from 'terra-status-view';
+import IconClose from 'terra-icon/lib/icon/IconClose';// TODO
 
 const subtextContent = (<p>Buttons or other controls comes here for next action</p>);
-const SensitiveDataStatusView = () => (
+const CustomStatusView = () => (
   <div>
     <StatusView
-      type="sensitive_data"
+      icon={<IconClose />}
+      heading="custom Heading"
+      type="custom"
       subtext="Description comes here"
       subtextContent={subtextContent}
     />
   </div>
 );
 
-export default SensitiveDataStatusView;
+export default CustomStatusView;
