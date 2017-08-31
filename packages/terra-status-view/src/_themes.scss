@@ -1,0 +1,11 @@
+@include cerner-consumer-theme {
+  --terra-statusview-icon-width: 100px;
+  --terra-statusview-icon-heigth: 100px;
+  --terra-statusview-heading-text-size: 36px; // TODO 30 px for mobile
+  --terra-statusview-heading-line-height: 30px; // TODO update this
+  --terra-statusview-heading-text-color: #868a8c; //$terra-grey-55;
+  --terra-statusview-subtext-text-size: 14px;
+  --terra-statusview-subtext-text-line-height: 18px;
+  --terra-statusview-subtext-text-color: #383f42;// $terra-grey-90;
+  --terra-statusview-divider: block;
+}
