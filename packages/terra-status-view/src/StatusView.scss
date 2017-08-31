@@ -1,7 +1,22 @@
+@import '~terra-mixins';
 @import './variables';
 @import './mixins';
-/* stylelint-disable selector-class-pattern  */
+
+@include cerner-consumer-theme {
+  --terra-statusview-icon-width: 100px;
+  --terra-statusview-icon-heigth: 100px;
+  --terra-statusview-heading-text-size: 36px; // xxRes-Large (30 mobile /36 px desktop);
+  --terra-statusview-heading-text-color: $terra-grey-55;
+  --terra-statusview-subtext-text-size: 14px;
+  --terra-statusview-subtext-text-line-height: 18px;
+  --terra-statusview-subtext-text-color: $terra-grey-90;
+  --terra-statusview-divider: block;
+  --terra-statusview-heading-line-height: 30px;
+  --terra-statusview-subtextcontent-aligment: center;
+}
+
 :local {
+  /* stylelint-disable selector-class-pattern  */
   .status-view {
     align-items: center;
     display: flex;

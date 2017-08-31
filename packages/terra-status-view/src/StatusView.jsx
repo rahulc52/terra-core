@@ -16,7 +16,7 @@ const statusTypes = ['clinical', 'no_data', 'no_result', 'not_authorized', 'sens
 const cx = classNames.bind(styles);
 
 const iconHeadingMapping = {
-  clinical: {
+  statusTypes: {
     icon: <IconSuccess width="100px" height="100px" />, // TODO
     heading: 'TBD', //TODO
   },
@@ -97,8 +97,10 @@ const StatusView = ({
   ...customProps }) => {
   let finalHeading;
   let finalIcon;
+
   finalHeading = heading;
   finalIcon = icon;
+
   if (type !== 'custom') {
     finalHeading = iconHeadingMapping[type].heading;
     finalIcon = iconHeadingMapping[type].icon;
