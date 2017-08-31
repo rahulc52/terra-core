@@ -17,35 +17,35 @@ const cx = classNames.bind(styles);
 
 const iconHeadingMapping = {
   clinical: {
-    icon: <IconSuccess />, // TODO
+    icon: <IconSuccess width="100px" height="100px" />, // TODO
     heading: 'TBD', //TODO
   },
   no_data: {
-    icon: <Icon2 />, // TODO
+    icon: <Icon2 width="100px" height="100px" />, // TODO
     heading: 'No Data', // TODO
   },
   no_result: {
-    icon: <Icon3 />, // TODO
+    icon: <Icon3 width="100px" height="100px" />, // TODO
     heading: 'No Matching Results', // TODO
   },
   not_authorized: {
-    icon: <Icon4 />, // TODO
+    icon: <Icon4 width="100px" height="100px" />, // TODO
     heading: 'Not Authorized', // TODO
   },
   sensitive_data: {
-    icon: <Icon5 />, // TODO
+    icon: <Icon5 width="100px" height="100px" />, // TODO
     heading: 'Sensitive Data', // TODO
   },
   error: {
-    icon: <Icon6 />, // TODO
+    icon: <Icon6 width="100px" height="100px" />, // TODO
     heading: 'Error', // TODO
   },
   no_internet: {
-    icon: <Icon7 />, // TODO
+    icon: <Icon7 width="100px" height="100px" />, // TODO
     heading: 'No Internet Connection', // TODO
   },
   error_loading: {
-    icon: <Icon8 />, // TODO
+    icon: <Icon8 width="100px" height="100px" />, // TODO
     heading: 'Error Loading', // TODO
   },
 };
