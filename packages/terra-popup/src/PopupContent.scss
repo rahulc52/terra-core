@@ -3,10 +3,6 @@
   [dir=ltr],
   [dir=rtl] {
     /* stylelint-disable selector-class-pattern  */
-    .popupContent {
-      display: block;
-    }
-
     .roundedCorners {
       border-radius: 5px;
     }
@@ -47,22 +43,6 @@
 
     .isFullScreen {
       box-shadow: none;
-    }
-
-    .popupContent[data-arrow-top='true'] {
-      margin-top: var(--terra-popup-content-margin, 10px);
-    }
-
-    .popupContent[data-arrow-bottom='true'] {
-      margin-bottom: var(--terra-popup-content-margin, 10px);
-    }
-
-    .popupContent[data-arrow-left='true'] {
-      margin-left: var(--terra-popup-content-margin, 10px);
-    }
-
-    .popupContent[data-arrow-right='true'] {
-      margin-right: var(--terra-popup-content-margin, 10px);
     }
   }
   /* stylelint-enable */
